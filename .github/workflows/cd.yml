@@ -1,0 +1,26 @@
+on:
+    push:
+        branches:
+            - main
+jobs:
+    Deploy:
+        name: Deploy
+        runs-on: ubuntu-latest
+        
+        steps:
+            - name: check out code
+              uses: actions/checkout@v6
+
+            - name: setup node
+              uses: actions/setup-node@v5
+              with:
+                    node-version: 22
+            - name: setup npm
+              run:  npm install --global npm@11.12.1
+
+            - name: install dependencies
+              run: npm ci
+
+            - name: build
+              run: npm run build
+            
